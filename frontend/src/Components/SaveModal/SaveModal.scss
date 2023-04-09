@@ -1,0 +1,80 @@
+@use "../../Styles/fonts" as *;
+@use "../../Styles/global" as *;
+
+.modal {
+	&__overlay {
+		width: 100vw;
+		height: 100vh;
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		left: 0;
+        z-index: 1;
+	}
+	&__container {
+		padding: 1rem;
+
+		width: 100vw;
+		background-color: $primary-white;
+
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		z-index: 2;
+
+		@include tablet {
+			width: 50vw;
+            height: fit-content;
+			top: 25%;
+			left: 25%;
+			// bottom: 30%;
+		}
+		&--disp {
+			display: flex;
+			flex-direction: column;
+			align-content: space-between;
+			height: 95vh;
+			justify-content: space-between;
+		}
+	}
+	&__close {
+		display: flex;
+		justify-content: flex-end;
+		img {
+			cursor: pointer;
+		}
+	}
+
+	&__title {
+		margin-top: 2rem;
+	}
+	&__content {
+		margin-top: 2rem;
+	}
+
+	//buttons
+	&__buttons {
+		display: flex;
+		gap: 1rem;
+        @include tablet{
+            justify-content: flex-end;
+        }
+        
+	}
+	&__delete-button {
+		background-color: $support-red;
+		color: white;
+		cursor: pointer;
+	}
+	&__cancel-button {
+		border: 1px solid $secondary-cloud;
+		background-color: $primary-white;
+		color: $secondary-slate;
+		cursor: pointer;
+	}
+}
+
+

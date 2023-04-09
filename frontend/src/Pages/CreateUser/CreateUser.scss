@@ -1,0 +1,9 @@
+@use '../../styles/global.scss' as*;
+@use '../../styles/fonts' as*;
+
+.createAccount{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: auto;
+}

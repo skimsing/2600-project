@@ -1,0 +1,14 @@
+@use '../../styles/global.scss' as*;
+@use '../../styles/fonts' as*;
+
+.write{
+    display: flex;
+    flex-direction: column;
+    margin: 2rem 0;
+    &__form{
+        font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        display: flex;
+        flex-direction: column;
+        padding: 0.3rem;
+    }
+}

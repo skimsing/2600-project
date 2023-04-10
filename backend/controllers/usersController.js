@@ -48,7 +48,7 @@ exports.loginUser = async (req, res) => {
       //user validation and create access token
       const isMatch = bcrypt.compareSync(req.body.password, user.password);
       if (isMatch) {
-          const accessToken = jwt.sign({username: user.name}, SECRET_TOKEN);
+          const accessToken = jwt.sign({username: user.username}, SECRET_TOKEN);
         res.status(200).json({ message: "login success", token: accessToken });
       } else {
         res.status(200).send("login failed");
@@ -72,43 +72,38 @@ exports.verifyUser = (req, res, next) => {
         }
     }
 };
-exports.getUserDetails = async (req, res) => {
-  try {
-    const results = await Users.findOne({ _id: req.params.id }).exec();
-    if(!results) res.status(200).json({message: "couldn't find user by id"})
-    else{
-        res.status(200).send(results);
-    }
-  } catch {
-    (error) => {
-      res.status(500).error("couldn't find user", error);
-    };
-  }
-};
-exports.getUsers = async (req, res) => {
-  try {
-    const results = await Users.find({}).exec();
-    res.status(200).send(results);
-  } catch {
-    (error) => {
-      res.status(500).error("couldn't find user", error);
-    };
-  }
+exports.getUser = async (req, res) => {
+    try {
+        if(req.user){
+            const results = await Users.findOne({ username: req.user.username }).exec();
+            if(!results) res.status(200).json({message: "couldn't find user by username"})
+            else{
+                res.status(200).send(results);
+            }
+        }
+        else res.status(200).send("invalid user token")
+      } catch {
+        (error) => {
+          res.status(500).error("couldn't find user", error);
+        };
+      }
 };
 exports.editUser = async (req, res) => {
   try {
-    //user validation here
-    const updateUser = {
-      name: req.body.name,
-      password: req.body.password,
-    };
-    const results = await Users.findOneAndUpdate(
-      { _id: req.params.id },
-      updateUser,
-      { new: true }
-    ).exec();
-    if (results) res.status(200).send("user information updated");
-    else res.status(200).send("error updating user");
+    if(req.user){
+        const updateUser = {
+            name: req.body.name,
+            password: req.body.password,
+        };
+        const results = await Users.findOneAndUpdate(
+            { username: req.user.username },
+            updateUser,
+            { new: true }
+        ).exec();
+        if (results) res.status(200).send("user information updated");
+        else res.status(200).send("error updating user");
+    }
+    else res.status(200).send("invalid user token")
   } catch {
     (error) => {
       res.status(500).error("couldn't login user", error);

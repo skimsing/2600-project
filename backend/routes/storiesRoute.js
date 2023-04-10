@@ -19,9 +19,10 @@ router.get("/", getAllStories);
 router.route("/:genre")
 .get(getStoriesbyGenre);
 
-router.route("/:userid")
-.get(getStoriesbyUser)
+router.route("/postStory")
 .post(verifyUser, postStory);
+
+router.route("/userStories").get(verifyUser, getStoriesbyUser);
 
 router.route("/:userid/:id")
 .get(getStoryById)

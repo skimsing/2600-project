@@ -1,0 +1,28 @@
+@use "../../styles/global.scss" as *;
+@use "../../styles/fonts" as *;
+
+.user {
+    width: 90%;
+    margin: auto;
+  &__editPrompt {
+    border: 2px solid #a4c8e1;
+    padding: 2px;
+    border-radius: 5px;
+    &:hover {
+      text-decoration: underline;
+      font-weight: 700;
+      color: #eee;
+      padding: 2px;
+      border: 2px solid #eee;
+      border-radius: 5px;
+      background: rgb(97, 121, 198);
+      background: linear-gradient(
+        165deg,
+        rgba(97, 121, 198, 1) 29%,
+        rgba(187, 54, 165, 1) 74%
+      );
+      box-shadow: 0 0 20px #eee;
+      transition: 0.3s;
+    }
+  }
+}

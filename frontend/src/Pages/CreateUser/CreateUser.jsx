@@ -79,6 +79,7 @@ export default function CreateAccount({ renderDialogue }) {
           className="createAccount__name"
           id="name"
           placeholder="enter your name..."
+          type="text"
           minLength="2"
           maxLength="50"
           required
@@ -94,6 +95,7 @@ export default function CreateAccount({ renderDialogue }) {
           className="createAccount__username"
           id="username"
           placeholder="enter a username..."
+          type="text"
           required
           minLength="6"
           maxLength="30"
@@ -109,6 +111,7 @@ export default function CreateAccount({ renderDialogue }) {
           className="createAccount__password"
           id="password"
           placeholder="choose a password..."
+          type="password"
           required
           minLength="8"
           maxLength="50"

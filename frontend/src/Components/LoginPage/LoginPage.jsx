@@ -57,7 +57,7 @@ export default function LoginPage({ isLoggedIn, handleLogin, renderDialogue }) {
         <input
           className="formCard__password"
           id="password"
-          type="text"
+          type="password"
           placeholder="enter your password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}

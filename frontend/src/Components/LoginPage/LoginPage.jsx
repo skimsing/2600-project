@@ -1,12 +1,13 @@
 import "./LoginPage.scss";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export default function LoginPage({setIsLoggedIn, isLoggedIn, getUser, handleLogin }) {
+export default function LoginPage({
+  isLoggedIn,
+  handleLogin,
+}) {
   const navigate = useNavigate();
-  const [show, setShow] = useState(false);
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -17,22 +18,16 @@ export default function LoginPage({setIsLoggedIn, isLoggedIn, getUser, handleLog
   const goCreateUser = () => {
     navigate("/CreateUser");
   };
-  const goHome = () =>{
-    navigate("/")
-  }
-//   const goUserHome = async(e) => {
-//     const check = await handleLogin(e,user)
-//     console.log("check", isLoggedIn)
-//     if (isLoggedIn) navigate("/");
-    
-//   };
+  const goHome = () => {
+    navigate("/");
+  };
   return (
     <div className="formCard">
       <h2>Login</h2>
       <form
         className="formCard__loginForm"
         onSubmit={(e) => {
-          handleLogin(e, user)
+          handleLogin(e, user);
         }}
       >
         <label htmlFor="username">Username</label>
@@ -55,7 +50,15 @@ export default function LoginPage({setIsLoggedIn, isLoggedIn, getUser, handleLog
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button className="formCard__loginBtn" type="submit">
+        <button
+          className="formCard__loginBtn"
+          type="submit"
+          onClick={() => {
+            if (isLoggedIn) {
+              navigate("/UserHome");
+            }
+          }}
+        >
           Log In
         </button>
       </form>

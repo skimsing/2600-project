@@ -100,7 +100,7 @@ exports.editUser = async (req, res) => {
             updateUser,
             { new: true }
         ).exec();
-        if (results) res.status(200).send("user information updated");
+        if (results) res.status(200).send(results);
         else res.status(200).send("error updating user");
     }
     else res.status(200).send("invalid user token")

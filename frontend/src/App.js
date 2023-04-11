@@ -1,5 +1,5 @@
 // import './App.css';
-import { BrowserRouter, Route, Routes, redirect, Navigate, useNavigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes} from "react-router-dom";
 import axios from "axios";
 
 //components
@@ -13,12 +13,12 @@ import UserHome from "./Pages/UserHome/UserHome";
 import CreateUser from "./Pages/CreateUser/CreateUser";
 import Stories from "./Pages/Stories/Stories";
 import { useState, useEffect } from "react";
-import StoryInput from "./Components/StoryInput/StoryInput";
+import EditUser from "./Components/Edit/Edit";
 
 function App() {
-  // const nav = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(false);
   const renderStory = (story) => <RenderStory story={story} />;
   const tempDetails = {
     name: "loading...",
@@ -47,7 +47,6 @@ function App() {
   //     }
   //   }
   //   updateUser(user)
-
   // },[user])
   //if user already logged in, get info
   const getUser = async (jwtToken) => {
@@ -93,13 +92,18 @@ function App() {
   const handleEditUser = async (e, editObj) => {
     try {
       e.preventDefault();
-      const response = axios.put("http://localhost:8080/users", editObj, {
+      // setLoading(true)
+      // while(loading){
+      //   setUser(tempDetails)
+      // }
+      const response = await axios.put("http://localhost:8080/users", editObj, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("jwt_token")}`,
         },
       });
       if (response) {
         setUser(response.data);
+        // setLoading(false)
       }
     } catch (error) {
       console.error("cannot edit user", error);
@@ -158,6 +162,15 @@ function App() {
               <Stories
                 renderStory={renderStory}
                 getStoriesByGenre={getStoriesByGenre}
+              />
+            }
+          />
+          <Route
+            path="/EditUser"
+            element={
+              <EditUser
+                // handleEditUser={handleEditUser}
+                setUser={setUser}
               />
             }
           />

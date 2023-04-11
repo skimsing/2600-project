@@ -1,6 +1,7 @@
 import "./UserHome.scss";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function UserHome({
   user,
@@ -8,19 +9,21 @@ export default function UserHome({
   handleEditUser,
   isLoggedIn,
 }) {
-  const { username, name, id } = user;
+  const nav = useNavigate();
+  const { username, name} = user;
   const [userStories, setUserStories] = useState([]);
   const [editing, setEditing] = useState(false);
   const [editName, setEditName] = useState("");
   const [loading, setLoading] = useState(false);
   //objects
   const editObj = {
-    name: editName,
+    name: editName
   };
   const getUserData = async () => {
     setLoading(true);
-    const userData = await user;
-    if (userData) {
+    // const userData = await user;
+    // if (userData) {
+      if(user){
       const getStories = await axios.get(
         `http://localhost:8080/stories/userStories`,
         {
@@ -35,7 +38,7 @@ export default function UserHome({
   };
   useEffect(() => {
     getUserData();
-  }, [user]);
+  }, []);
   return (
     <div className="user">
       {isLoggedIn ? (
@@ -65,7 +68,6 @@ export default function UserHome({
                   {editing && (
                     <form
                       onSubmit={(e) => {
-                        // e.preventDefault()
                         handleEditUser(e, editObj);
                       }}
                     >
@@ -81,6 +83,15 @@ export default function UserHome({
                     </form>
                   )}
                 </div>
+                {/* <div className="user__editDetails">
+                  <button
+                    className="user__editPrompt"
+                    type="button"
+                    onClick={() => nav("/EditUser")}
+                  >
+                    Edit Your Name?
+                  </button>
+                </div> */}
               </div>
               <div className="user__stories">
                 <h2>Your Stories:</h2>

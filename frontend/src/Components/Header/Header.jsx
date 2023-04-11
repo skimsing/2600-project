@@ -6,36 +6,6 @@ import axios from 'axios';
 export default function Header({isLoggedIn, user, setUser, setIsLoggedIn}){
     const nav = useNavigate();
     const [loading, setLoading] = useState(false);
-    const tempDetails = {
-        name: "loading...",
-        username: "loading...",
-      };
-    //   const updating = async() =>{
-    //     setLoading(true)
-    //     if(user == undefined) setUser(tempDetails)
-    //     const res = await user
-    //     console.log(res)
-    //     setUser(res)
-    //     setLoading(false)
-    // }
-    //   useEffect(()=>{
-        //   const jwtToken = localStorage.getItem("jwt_token");
-        //   if(user == undefined) setUser(tempDetails)
-        //   const updateUser = async () =>{
-        //     try {
-        //       const res = await axios.get("http://localhost:8080/users", {
-        //         headers: {
-        //           Authorization: `Bearer ${jwtToken}`,
-        //         },
-        //       });
-        //       setUser(res.data)
-        //     } catch (error) {
-        //       setUser(tempDetails)
-        //     }
-        //   }
-        //   updateUser(user)
-        // updating()
-        // },[user])
     const handleLogout = () => {
         nav('/')
         setIsLoggedIn(false);

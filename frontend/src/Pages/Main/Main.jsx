@@ -2,7 +2,7 @@ import './Main.scss'
 import React, { useState } from "react"
 import prompts from '../../assets/writing-prompts.json'
 import StoryInput from '../../Components/StoryInput/StoryInput'
-export default function Main({isLoggedIn, user}){
+export default function Main({isLoggedIn, user, renderDialogue}){
     const [prompt, setPrompt] = useState("");
     const getRandomPrompt = () =>{
         const randomInt = Math.floor(Math.random() * 20 + 1);
@@ -31,7 +31,7 @@ export default function Main({isLoggedIn, user}){
                 onClick={()=>setPrompt(getRandomPrompt)}
                 >Get new Prompt</button>
             </div>
-            <StoryInput isLoggedIn={isLoggedIn} user={user}/>
+            <StoryInput isLoggedIn={isLoggedIn} user={user} renderDialogue={renderDialogue}/>
         </div>
     )
 }

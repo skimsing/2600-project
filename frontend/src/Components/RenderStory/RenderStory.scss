@@ -2,21 +2,14 @@
 @use '../../styles/fonts' as*;
 
 .story{
-    margin: 0.5rem 0.3rem;
+    margin: 1rem 0.3rem;
     &__info{
         margin: 0.2rem 0;
     }
     &__title{
         font-weight: 700;
     }
-    // &__genre{
-
-    // }
-    // &__date{
-
-    // }
-    // &__author{
-
-    // }
-    // &__body{}
+    &__genre{
+        text-decoration: underline;
+    }
 }

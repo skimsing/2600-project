@@ -4,15 +4,14 @@ const router = express.Router({ mergeParams: true });
 const {
   newUser,
   loginUser,
-  getUserDetails,
   editUser,
   getUser,
   verifyUser,
+  checkUsername
 } = require("../controllers/usersController");
-// const { getStoriesbyUser } = require("../controllers/storiesController");
+
 //routes
-// router.route("/:id").get(verifyUser, getStoriesbyUser);
-// .get(verifyUser, getUserDetails)
+router.route("/:username").get(checkUsername);
 
 router.post("/login", loginUser);
 

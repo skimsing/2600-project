@@ -7,4 +7,26 @@
     &__header{
         margin: 2rem 0;
     }
+    &__btn {
+        margin: 1rem 0;
+        border: 2px solid #a4c8e1;
+        padding: 3px;
+        border-radius: 5px;
+        &:hover {
+          text-decoration: underline;
+          font-weight: 700;
+          color: #eee;
+          padding: 3px;
+          border: 2px solid #eee;
+          border-radius: 5px;
+          background: rgb(97, 121, 198);
+          background: linear-gradient(
+            165deg,
+            rgba(97, 121, 198, 1) 29%,
+            rgba(187, 54, 165, 1) 74%
+          );
+          box-shadow: 0 0 20px #eee;
+          transition: 0.3s;
+        }
+      }
 }

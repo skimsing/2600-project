@@ -28,6 +28,7 @@ export default function Stories({ renderStory, getStoriesByGenre }) {
   }, [selectedGenre])
   return (
     <div className="stories">
+      <h1 className="stories__title">Stumped? Try Reading Some Stories!</h1>
       <form className="genreForm">
         <label className="genreForm__label" htmlFor="genres">
           Select Genre

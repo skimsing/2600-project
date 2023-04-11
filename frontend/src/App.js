@@ -1,5 +1,5 @@
 // import './App.css';
-import { BrowserRouter, Route, Routes} from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import axios from "axios";
 
 //components
@@ -14,12 +14,19 @@ import CreateUser from "./Pages/CreateUser/CreateUser";
 import Stories from "./Pages/Stories/Stories";
 import { useState, useEffect } from "react";
 import EditUser from "./Components/Edit/Edit";
+import Dialogue from "./Components/Dialogue/Dialogue";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(false);
+  const [show, setShow] = useState(false);
+  const [msg, setMsg] = useState("");
+  const [title, setTitle] = useState("")
   const renderStory = (story) => <RenderStory story={story} />;
+  const renderDialogue = (messageObj) => (
+    <Dialogue message={messageObj} show={show} setShow={setShow} />
+  );
   const tempDetails = {
     name: "loading...",
     username: "loading...",
@@ -71,8 +78,7 @@ function App() {
     }
   };
   //password and token authentication handled by server
-  const handleLogin = async (event, userObj) => {
-    event.preventDefault();
+  const handleLogin = async (userObj) => {
     try {
       const response = await axios.post(
         `http://localhost:8080/users/login`,
@@ -81,21 +87,20 @@ function App() {
       if (response.data.token) {
         getUser(response.data.token);
         localStorage.setItem("jwt_token", response.data.token);
-        alert("login success!")
+        setTitle("Success!")
+        setMsg("logged in successfully")
+        setShow(true)
       } else {
         console.log("couldn't find user");
       }
     } catch (error) {
       console.error("cannot log in", error);
+      setMsg(error.response.data.message)
+      setShow(true)
     }
   };
-  const handleEditUser = async (e, editObj) => {
+  const handleEditUser = async (editObj) => {
     try {
-      e.preventDefault();
-      // setLoading(true)
-      // while(loading){
-      //   setUser(tempDetails)
-      // }
       const response = await axios.put("http://localhost:8080/users", editObj, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("jwt_token")}`,
@@ -103,7 +108,6 @@ function App() {
       });
       if (response) {
         setUser(response.data);
-        // setLoading(false)
       }
     } catch (error) {
       console.error("cannot edit user", error);
@@ -132,7 +136,13 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={<Main isLoggedIn={isLoggedIn} user={user} />}
+            element={
+              <Main
+                isLoggedIn={isLoggedIn}
+                user={user}
+                renderDialogue={renderDialogue}
+              />
+            }
           />
           <Route
             path="/UserHome"
@@ -143,17 +153,31 @@ function App() {
                 renderStory={renderStory}
                 handleEditUser={handleEditUser}
                 setUser={setUser}
+                renderDialogue={renderDialogue}
               />
             }
           />
           <Route
             path="/CreateUser"
-            element={<CreateUser isLoggedIn={isLoggedIn} />}
+            element={
+              <CreateUser
+                isLoggedIn={isLoggedIn}
+                renderDialogue={renderDialogue}
+              />
+            }
           />
           <Route
             path="/Login"
             element={
-              <LoginPage getUser={getUser} handleLogin={handleLogin} setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
+              <LoginPage
+                getUser={getUser}
+                handleLogin={handleLogin}
+                setIsLoggedIn={setIsLoggedIn}
+                isLoggedIn={isLoggedIn}
+                renderDialogue={renderDialogue}
+                msg={msg}
+                show={show}
+              />
             }
           />
           <Route
@@ -165,7 +189,7 @@ function App() {
               />
             }
           />
-          <Route
+          {/* <Route
             path="/EditUser"
             element={
               <EditUser
@@ -173,9 +197,10 @@ function App() {
                 setUser={setUser}
               />
             }
-          />
+          /> */}
         </Routes>
       </BrowserRouter>
+      {show && <Dialogue setShow={setShow} message={msg} title={title}/>}
     </div>
   );
 }

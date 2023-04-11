@@ -5,6 +5,8 @@ A project made for CPSC2600. Scribble is a clean and simple website designed to 
 
 Scribble uses jwt for authorization and authentication, and bcrypt for password hashing
 
+[Project Link](https://two600-skimsing.onrender.com)
+
 ## Installation
 
 Use the package manager npm to install Scribble. Make sure to use npm i on both frontend and backend files.
@@ -47,10 +49,10 @@ stories/:userid/:id
 Allows a verified user to create and edit stories (although edit stories is not currently supported via frontend)
 
 ## Tutorials Referenced (Thanks!)
-https://youtu.be/xt1Zc7gqAyw
+[Mongoose validation](https://youtu.be/xt1Zc7gqAyw)
 
-https://dev.to/eidorianavi/authentication-and-jwt-in-node-js-4i13
-
+[Backend Authentication](https://dev.to/eidorianavi/authentication-and-jwt-in-node-js-4i13)
+[Regex Expressions](https://www.makeuseof.com/regular-expressions-validate-user-account/)
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)

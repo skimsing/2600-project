@@ -2,12 +2,14 @@ import "./UserHome.scss";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import {noSpaces, allSpaces} from '../../Helpers/Validators'
+import Dialogue from "../../Components/Dialogue/Dialogue";
 export default function UserHome({
   user,
   renderStory,
   handleEditUser,
   isLoggedIn,
+  renderDialogue
 }) {
   const nav = useNavigate();
   const { username, name} = user;
@@ -15,14 +17,15 @@ export default function UserHome({
   const [editing, setEditing] = useState(false);
   const [editName, setEditName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [show, setShow] = useState(false)
+  const [errorMsg, setErrorMsg] = useState("");
   //objects
   const editObj = {
     name: editName
   };
   const getUserData = async () => {
-    setLoading(true);
-    // const userData = await user;
-    // if (userData) {
+    try {
+      setLoading(true);
       if(user){
       const getStories = await axios.get(
         `http://localhost:8080/stories/userStories`,
@@ -35,10 +38,24 @@ export default function UserHome({
       if (getStories) setUserStories(getStories.data);
     }
     setLoading(false);
+    } catch (error) {
+      console.error("couldn't load stories", error)
+    }
   };
   useEffect(() => {
     getUserData();
   }, []);
+
+  const handleValidEdit = (e) =>{
+    e.preventDefault();
+    if(noSpaces(editName)){
+      handleEditUser(editObj)
+    }
+    else{
+      setErrorMsg("sorry name cannot contain spaces")
+      setShow(true)
+    }
+  }
   return (
     <div className="user">
       {isLoggedIn ? (
@@ -68,7 +85,7 @@ export default function UserHome({
                   {editing && (
                     <form
                       onSubmit={(e) => {
-                        handleEditUser(e, editObj);
+                        handleValidEdit(e);
                       }}
                     >
                       <input
@@ -77,6 +94,7 @@ export default function UserHome({
                         minLength="2"
                         maxLength="50"
                         value={editName}
+                        required
                         onChange={(e) => setEditName(e.target.value)}
                       ></input>
                       <button type="submit">submit</button>
@@ -101,6 +119,7 @@ export default function UserHome({
               </div>
             </div>
           )}
+          {show && <Dialogue setShow={setShow} message={errorMsg}/>}
         </div>
       ) : (
         <div>

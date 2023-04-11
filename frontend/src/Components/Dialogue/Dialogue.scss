@@ -1,0 +1,40 @@
+@use "../../styles/global" as *;
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dialogue {
+  background-color: #eee;
+  border-radius: 5px;
+  border: 2px solid #a4c8e1;
+  padding: 1rem;
+  height: 250px;
+  width: 300px;
+  &__closeBtn {
+    border: 2px solid #a4c8e1;
+    padding: 2px;
+    border-radius: 5px;
+    &:hover {
+      text-decoration: underline;
+      font-weight: 700;
+      color: #36454f;
+      padding: 2px;
+      border-radius: 5px;
+      background: rgb(159, 253, 255);
+      background: linear-gradient(
+        165deg,
+        rgba(159, 253, 255, 1) 18%,
+        rgba(255, 155, 238, 1) 69%
+      );
+    }
+  }
+}

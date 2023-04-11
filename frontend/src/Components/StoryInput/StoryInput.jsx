@@ -1,34 +1,49 @@
 import './StoryInput.scss'
-import axios from "axios";
+import axios, { all } from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-
-export default function StoryInput({ isLoggedIn, user }) {
+import { allSpaces} from '../../Helpers/Validators';
+import Dialogue from '../Dialogue/Dialogue';
+export default function StoryInput({ isLoggedIn, user, renderDialogue}) {
   const navigate = useNavigate();
   const [story, setStory] = useState("");
   const [title, setTitle] = useState("");
   const [genre, setGenre] = useState("other");
-  const [posted, setPosted] = useState(false);
+  const [show, setShow] = useState(false);
+  const [dialogueTitle, setDialogueTitle] = useState("")
+  const [msg, setMsg] = useState("");
+  const newStory = {
+    title: title,
+    story: story,
+    genre: genre,
+  };
+  const validStory = (story) =>{
+    if(!allSpaces(story)) return true
+    else return false
+  }
   const postStory = (form) => {
     try {
       form.preventDefault();
-      const newStory = {
-        title: title,
-        story: story,
-        genre: genre,
-      };
-      axios
-        .post("http://localhost:8080/stories/postStory", newStory, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt_token")}`,
-          },
-        })
-        .then((response) => {
-          console.log(response)
-          setPosted(true)
-        });
+      if(!validStory(newStory.story) || !validStory(newStory.title)){
+        setMsg("please write something!")
+        setShow(true)
+      }
+      else{
+        axios
+          .post("http://localhost:8080/stories/postStory", newStory, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("jwt_token")}`,
+            },
+          })
+          .then((response) => {
+            console.log(response)
+            setDialogueTitle("Success!")
+            setMsg("Your story has been successfully posted")
+            setShow(true)
+          });
+      }
     } catch (error) {
+      setMsg(error.response.data.message)
       console.error("story could not post", error);
     }
   };
@@ -91,11 +106,11 @@ export default function StoryInput({ isLoggedIn, user }) {
           minLength="10"
           maxLength="3000"
         ></textarea>
-        <button className="write__submit" type="submit">
+        <button className="write__btn" type="submit">
           Submit
         </button>
       </form>
-      {posted && <p>your story has been posted</p>}
+      {show && <Dialogue message={msg} setShow={setShow} title={dialogueTitle}/>}
     </div>
   );
 }

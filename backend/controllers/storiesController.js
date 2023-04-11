@@ -66,17 +66,17 @@ exports.getStoriesbyUser = async (req, res) => {
       const results = await Users.findOne({ username: req.user.username })
         .select("_id")
         .exec();
-      if (!results) res.status(200).send({ message: "no user found" });
+      if (!results) res.status(400).send({ message: "no user found" });
       const foundStories = await Stories.find({
         author: results._id,
       }).exec();
       if (!foundStories)
-        res.status(200).send({ message: "couldn't find requested author" });
+        res.status(400).send({ message: "couldn't find stories by requested author" });
       else res.status(200).send(foundStories);
     } else
       res
-        .status(200)
-        .send({ message: "couldn't find requested user/ auth failed" });
+        .status(401)
+        .send({ message: "auth failed" });
   } catch {
     (error) => {
       res.status(500).error("couldn't find stories by author", error);
@@ -87,12 +87,12 @@ exports.postStory = async (req, res) => {
   try {
     if (req.user) {
       if (!req.body.story || !req.body.title)
-        res.status(200).json({ message: "these fields can't be blank!" });
+        res.status(400).json({ message: "these fields can't be blank!" });
       else {
         const results = await Users.findOne({ username: req.user.username })
           .select("_id")
           .exec();
-        if (!results) res.status(200).send({ message: "no user found" });
+        if (!results) res.status(400).send({ message: "no user found" });
         // else res.send(results)
         else {
           const parsed = req.body.genre.toLowerCase();
@@ -115,8 +115,8 @@ exports.postStory = async (req, res) => {
       }
     } else
       res
-        .status(200)
-        .send({ message: "couldn't post story to user/ auth failed" });
+        .status(401)
+        .send({ message: "user auth failed" });
   } catch {
     (error) => {
       res.status(500).error("couldn't post story", error);
@@ -126,10 +126,11 @@ exports.postStory = async (req, res) => {
 
 exports.editStory = async (req, res) => {
   try {
-    const foundUser = await Users.findOne({ _id: req.params.userid })
+    if(req.user){
+      const foundUser = await Users.findOne({ username: req.user.username })
       .select("username _id")
       .exec();
-    if (!foundUser) res.status(200).send("user was not found");
+    if (!foundUser) res.status(400).send("user was not found");
     else {
       const parsed = req.body.genre.toLowerCase();
       const checkGenre = Stories.isValidGenre(parsed) ? parsed : "other";
@@ -145,8 +146,10 @@ exports.editStory = async (req, res) => {
       ).exec();
       if (results) {
         res.status(200).send(results);
-      } else res.status(200).send("error updating story");
+      } else res.status(400).send("error updating story");
     }
+    }
+    else res.status(401).send({message: "couldn't edit story user auth failed"})
   } catch (error) {
     res.status(500).error("couldn't update story", error);
   }

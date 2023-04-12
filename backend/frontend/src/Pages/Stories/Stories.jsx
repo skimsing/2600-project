@@ -1,7 +1,6 @@
 import "./Stories.scss";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
 export default function Stories({ renderStory, getStoriesByGenre }) {
   const [storiesArray, setStoriesArray] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState(null);

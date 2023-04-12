@@ -2,7 +2,7 @@ import "./UserHome.scss";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {noSpaces, allSpaces} from '../../Helpers/Validators'
+import {noSpaces} from '../../Helpers/Validators'
 import Dialogue from "../../Components/Dialogue/Dialogue";
 export default function UserHome({
   user,

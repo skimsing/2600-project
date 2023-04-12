@@ -1,4 +1,6 @@
-@use "../../styles/global" as *;
+@use "../../Styles/_global.scss" as *;
+@use "../../Styles/_fonts.scss" as *;
+
 
 .headerNav {
   &__nav {

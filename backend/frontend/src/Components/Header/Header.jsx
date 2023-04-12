@@ -1,7 +1,7 @@
 import './Header.scss';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
+
 
 export default function Header({isLoggedIn, user, setUser, setIsLoggedIn}){
     const nav = useNavigate();

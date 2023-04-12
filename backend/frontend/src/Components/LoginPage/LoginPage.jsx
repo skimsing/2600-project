@@ -1,8 +1,7 @@
 import "./LoginPage.scss";
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { noSpaces, allSpaces } from "../../Helpers/Validators";
+import { noSpaces } from "../../Helpers/Validators";
 import Dialogue from "../Dialogue/Dialogue";
 
 export default function LoginPage({ isLoggedIn, handleLogin, renderDialogue }) {

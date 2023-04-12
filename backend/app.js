@@ -15,6 +15,7 @@ app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname,'frontend', 'build', 'index.html'));
 });
 
+console.log(path.join(__dirname,'frontend', 'build', 'index.html'))
 const connection = require('./connection.js');
 
 connection.then(()=>{

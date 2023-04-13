@@ -26,7 +26,7 @@ export default function UserHome({
       setLoading(true);
       if(user){
       const getStories = await axios.get(
-        `http://localhost:8080/stories/userStories`,
+        `/stories/userStories`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwt_token")}`,

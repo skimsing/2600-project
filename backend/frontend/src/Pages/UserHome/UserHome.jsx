@@ -1,7 +1,6 @@
 import "./UserHome.scss";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import {noSpaces} from '../../Helpers/Validators'
 import Dialogue from "../../Components/Dialogue/Dialogue";
 export default function UserHome({
@@ -11,7 +10,6 @@ export default function UserHome({
   isLoggedIn,
   renderDialogue
 }) {
-  const nav = useNavigate();
   const { username, name} = user;
   const [userStories, setUserStories] = useState([]);
   const [editing, setEditing] = useState(false);
@@ -101,15 +99,6 @@ export default function UserHome({
                     </form>
                   )}
                 </div>
-                {/* <div className="user__editDetails">
-                  <button
-                    className="user__editPrompt"
-                    type="button"
-                    onClick={() => nav("/EditUser")}
-                  >
-                    Edit Your Name?
-                  </button>
-                </div> */}
               </div>
               <div className="user__stories">
                 <h2>Your Stories:</h2>

@@ -6,7 +6,7 @@ export default function Stories({ renderStory, getStoriesByGenre }) {
   const [selectedGenre, setSelectedGenre] = useState(null);
   //on mount get all stories
   useEffect(() => {
-    axios.get("http://localhost:8080/stories").then((response) => {
+    axios.get("/stories").then((response) => {
       setStoriesArray(response.data);
     });
   }, []);

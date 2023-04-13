@@ -36,7 +36,7 @@ function App() {
   //if user already logged in, get info
   const getUser = async (jwtToken) => {
     try {
-      const response = await axios.get("http://localhost:8080/users", {
+      const response = await axios.get("/users", {
         headers: {
           Authorization: `Bearer ${jwtToken}`,
         },
@@ -59,7 +59,7 @@ function App() {
   const handleLogin = async (userObj) => {
     try {
       const response = await axios.post(
-        `http://localhost:8080/users/login`,
+        `/users/login`,
         userObj
       );
       if (response.data.token) {
@@ -79,7 +79,7 @@ function App() {
   };
   const handleEditUser = async (editObj) => {
     try {
-      const response = await axios.put("http://localhost:8080/users", editObj, {
+      const response = await axios.put("/users", editObj, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("jwt_token")}`,
         },
@@ -94,7 +94,7 @@ function App() {
   const getStoriesByGenre = async (genre) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/stories/${genre}`
+        `/stories/${genre}`
       );
       if (!response) return null;
       else return response.data;
@@ -159,7 +159,7 @@ function App() {
             }
           />
           <Route
-            path="/Stories"
+            path="/ReadStories"
             element={
               <Stories
                 renderStory={renderStory}

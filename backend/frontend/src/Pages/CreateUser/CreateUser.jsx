@@ -18,10 +18,6 @@ export default function CreateAccount({ renderDialogue }) {
     username: username,
     password: password,
   };
-  const validField = (field) => {
-    if (!allSpaces(field) && noSpaces(field)) return true;
-    else return false;
-  };
   const handleNewAccount = async (data) => {
     try {
       data.preventDefault();
@@ -36,7 +32,7 @@ export default function CreateAccount({ renderDialogue }) {
         setShow(true);
       } else {
         const res = await axios.post(
-          "http://localhost:8080/users/",
+          "/users",
           createNewUser
         );
         if (res) {
@@ -58,7 +54,7 @@ export default function CreateAccount({ renderDialogue }) {
 
   return (
     <div className="createAccount">
-      <h2>Create an Account</h2>
+      <h1>Create an Account</h1>
       <div>
         <ul className="createAccount__list">
           <li className="createAccount__li">

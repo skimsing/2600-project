@@ -1,11 +1,9 @@
 import './StoryInput.scss'
-import axios, { all } from "axios";
+import axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { allSpaces} from '../../Helpers/Validators';
 import Dialogue from '../Dialogue/Dialogue';
 export default function StoryInput({ isLoggedIn, user, renderDialogue}) {
-  const navigate = useNavigate();
   const [story, setStory] = useState("");
   const [title, setTitle] = useState("");
   const [genre, setGenre] = useState("other");
@@ -30,7 +28,7 @@ export default function StoryInput({ isLoggedIn, user, renderDialogue}) {
       }
       else{
         axios
-          .post("http://localhost:8080/stories/postStory", newStory, {
+          .post("/stories/postStory", newStory, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("jwt_token")}`,
             },
@@ -45,17 +43,6 @@ export default function StoryInput({ isLoggedIn, user, renderDialogue}) {
     } catch (error) {
       setMsg(error.response.data.message)
       console.error("story could not post", error);
-    }
-  };
-  const handleSubmit = () => {
-    try {
-      if (isLoggedIn) {
-        postStory();
-      } else {
-        console.log("sorry, you are not logged in");
-      }
-    } catch (error) {
-      console.error("story could not save", error);
     }
   };
   return (

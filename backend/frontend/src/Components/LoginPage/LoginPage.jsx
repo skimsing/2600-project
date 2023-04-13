@@ -31,7 +31,7 @@ export default function LoginPage({ isLoggedIn, handleLogin, renderDialogue }) {
   };
   return (
     <div className="formCard">
-      <h2>Login</h2>
+      <h1>Login</h1>
       <form
         className="formCard__loginForm"
         onSubmit={(e) => {

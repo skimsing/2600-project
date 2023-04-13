@@ -37,7 +37,7 @@ export default function Header({isLoggedIn, user, setUser, setIsLoggedIn}){
                     </li>}
                     <li className='headerNav__item'>
                         <Link className="headerNav__itemLink"
-                            to={"/Stories"}>
+                            to={"/ReadStories"}>
                             Stories
                         </Link>
                     </li>

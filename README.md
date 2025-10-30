@@ -5,8 +5,6 @@ A project made for CPSC2600. Scribble is a clean and simple website designed to 
 
 Scribble uses jwt for authorization and authentication, and bcrypt for password hashing
 
-[Project Link](https://two600-skimsing.onrender.com)
-
 ## Installation
 
 Use the package manager npm to install Scribble. Make sure to use npm i on both frontend and backend files.
